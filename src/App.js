@@ -1,4 +1,5 @@
 import React from 'react';
+import { Button } from '@material-ui/core';
 
 const getMedia = async () => {
   const constraints = {
@@ -18,7 +19,7 @@ const getMedia = async () => {
 getMedia();
 
 const App = () => {
-  return <div>Hello, React!</div>;
-}
+  return <Button variant="contained">Hello, React!</Button>;
+};
 
 export default App;
