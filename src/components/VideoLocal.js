@@ -1,6 +1,8 @@
 import React, { useEffect, useRef } from "react";
 
-const VideoLocal = () => {
+import Video from "./Video";
+
+const VideoLocal = ({ name }) => {
   const videoRef = useRef(null);
   const currentVideoRef = videoRef.current;  
 
@@ -24,7 +26,7 @@ const VideoLocal = () => {
     getMedia();
   }, [currentVideoRef]);
 
-  return <></>;
+  return <Video videoRef={videoRef} name={name} isLocal={true} />;
 };
 
 export default VideoLocal;
