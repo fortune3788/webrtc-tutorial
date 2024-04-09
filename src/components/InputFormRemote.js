@@ -1,4 +1,4 @@
-import * as React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import Button from '@mui/material/Button';
 import CssBaseline from '@mui/material/CssBaseline';
 import TextField from '@mui/material/TextField';
@@ -25,8 +25,32 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignIn( { remotePeerName, setRemotePeerName }) {
+export default function SignIn( { localPeerName, remotePeerName, setRemotePeerName }) {
   const label = '相手の名前';
+
+  const [name, setName] = useState('');
+
+  const [disabled, setDisabled] = useState(true);
+
+  const [isComposed, setIsComposed] = useState(false);
+
+  useEffect(() => {
+    const disabled = name === '';
+    setDisabled(disabled);
+  }, [name]);
+
+  const initializeRemotePeer = useCallback((e) => {
+    setRemotePeerName(name);
+    e.preventDefault();
+  }, [name, setRemotePeerName]);
+
+  if (localPeerName === '') {
+    return <></>;
+  }
+  if (remotePeerName !== '') {
+    return <></>;
+  }
+
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -59,12 +83,29 @@ export default function SignIn( { remotePeerName, setRemotePeerName }) {
               label={label}
               name="name"
               autoFocus
+              onChange={(e) => setName(e.target.value)}
+              value={name}
+              onCompositionStart={() => setIsComposed(true)}
+              onCompositionEnd={() => setIsComposed(false)}
+              onKeyDown={(e) => {
+                if (isComposed) {
+                  return;
+                }
+                if (e.target.value === '') {
+                  return;
+                }
+                if (e.key === 'Enter') {
+                  initializeRemotePeer(e);
+                }
+              }}
             />
             <Button
               type="submit"
               fullWidth
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
+              disabled={disabled}
+              onClick={(e) => initializeRemotePeer(e)}
             >
               決定
             </Button>
