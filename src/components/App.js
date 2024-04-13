@@ -1,8 +1,9 @@
-import React, { useState } from 'react';
+import React from 'react';
 
 import InputFormLocal from './InputFormLocal';
 import InputFormRemote from './InputFormRemote';
 import VideoArea from './VideoArea';
+import RtcClient from '../utils/RtcClient';
 
 const getMedia = async () => {
   const constraints = {
@@ -22,24 +23,13 @@ const getMedia = async () => {
 getMedia();
 
 const App = () => {
-  const [localPeerName, setLocalPeerName] = useState('');
-  const [remotePeerName, setRemotePeerName] = useState('');
+  const rtcClient = new RtcClient();
 
   return (
   <>
-    <InputFormLocal
-      localPeerName={localPeerName}
-      setLocalPeerName={setLocalPeerName}
-    />
-    <InputFormRemote
-      localPeerName={localPeerName}
-      remotePeerName={remotePeerName}
-      setRemotePeerName={setRemotePeerName}
-    />
-    <VideoArea
-      localPeerName={localPeerName}
-      remotePeerName={remotePeerName}
-     />
+    <InputFormLocal rtcClient={rtcClient} />
+    <InputFormRemote rtcClient={rtcClient} />
+    <VideoArea rtcClient={rtcClient} />
   </>
   );
 };

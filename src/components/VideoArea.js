@@ -15,15 +15,15 @@ import VideoRemote from './VideoRemote';
 //   color: theme.palette.text.secondary,
 // }));
 
-const VideoArea = ( { localPeerName, remotePeerName }) => {
+const VideoArea = ( { rtcClient }) => {
   return (
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={6} md={6}>
-          <VideoLocal name={localPeerName} />
+          <VideoLocal name={rtcClient.localPeerName} />
         </Grid>
         <Grid item xs={6} md={6}>
-          <VideoRemote name={remotePeerName} />
+          <VideoRemote name={rtcClient.remotePeerName} />
         </Grid>
       </Grid>
     </Box>

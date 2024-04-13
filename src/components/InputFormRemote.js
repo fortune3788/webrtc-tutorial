@@ -25,7 +25,7 @@ function Copyright(props) {
 
 const defaultTheme = createTheme();
 
-export default function SignIn( { localPeerName, remotePeerName, setRemotePeerName }) {
+export default function SignIn( { rtcClient }) {
   const label = '相手の名前';
 
   const [name, setName] = useState('');
@@ -40,14 +40,14 @@ export default function SignIn( { localPeerName, remotePeerName, setRemotePeerNa
   }, [name]);
 
   const initializeRemotePeer = useCallback((e) => {
-    setRemotePeerName(name);
+    rtcClient.remotePeerName = name;
     e.preventDefault();
-  }, [name, setRemotePeerName]);
+  }, [name, rtcClient]);
 
-  if (localPeerName === '') {
+  if (rtcClient.remotePeerName === '') {
     return <></>;
   }
-  if (remotePeerName !== '') {
+  if (rtcClient.remotePeerName !== '') {
     return <></>;
   }
 
