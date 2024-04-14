@@ -1,9 +1,8 @@
-import React, { useReducer, useState } from 'react';
+import React from 'react';
 
-import InputFormLocal from './InputFormLocal';
-import InputFormRemote from './InputFormRemote';
 import VideoArea from './VideoArea';
-import RtcClient from '../utils/RtcClient';
+import useRtcClient from './hooks/useRtcClient';
+import InputForms from './InputForms';
 
 const getMedia = async () => {
   const constraints = {
@@ -23,18 +22,11 @@ const getMedia = async () => {
 getMedia();
 
 const App = () => {
-  const [rtcClient, _setRtcClient] = useState(new RtcClient());
-  const [, forceRender] = useReducer((boolean => !boolean), false);
-
-  const setRtcClient = (rtcClient) => {
-    _setRtcClient(rtcClient);
-    forceRender();
-  };
-
+  const rtcClient = useRtcClient();
+  
   return (
   <>
-    <InputFormLocal rtcClient={rtcClient} setRtcClient={setRtcClient} />
-    <InputFormRemote rtcClient={rtcClient} setRtcClient={setRtcClient} />
+    <InputForms rtcClient={rtcClient} />
     <VideoArea rtcClient={rtcClient} />
   </>
   );
