@@ -23,10 +23,10 @@ const VideoArea = ( { rtcClient }) => {
     <Box sx={{ flexGrow: 1 }}>
       <Grid container spacing={2}>
         <Grid item xs={6} md={6}>
-          <VideoLocal name={rtcClient.localPeerName} />
+          <VideoLocal rtcClient={rtcClient} />
         </Grid>
         <Grid item xs={6} md={6}>
-          <VideoRemote name={rtcClient.remotePeerName} />
+          <VideoRemote rtcClient={rtcClient} />
         </Grid>
       </Grid>
     </Box>
