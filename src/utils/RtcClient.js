@@ -28,7 +28,12 @@ export default class RtcClient {
     } catch (error) {
       console.log(error);
     }
-    
+  }
+
+  stratListening(localPeerName) {
+    this.localPeerName = localPeerName;
+    this.setRtcClient();
+    // TODO: ここにシグナリングサーバをリスンする処理を追加する。
   }
 }
 
