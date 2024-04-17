@@ -1,3 +1,5 @@
+import FirebaseSignallingClient from './FirebaseSignallingClient';
+
 export default class RtcClient {
   constructor(setRtcClient) {
     const config = {
@@ -8,6 +10,7 @@ export default class RtcClient {
       ],
     };
     this.rtcPeerConnection = new RTCPeerConnection(config);
+    this.firebaseSignallingClient = new FirebaseSignallingClient();
     this.localPeerName = "";
     this.remotePeerName = "";
     this._setRtcClient = setRtcClient;
@@ -33,7 +36,11 @@ export default class RtcClient {
   stratListening(localPeerName) {
     this.localPeerName = localPeerName;
     this.setRtcClient();
-    // TODO: ここにシグナリングサーバをリスンする処理を追加する。
+    this.firebaseSignallingClient.database
+      .ref('localPeerName')
+      .on('value', (snapshot) => {
+        const data = snapshot.val();
+      });
   }
 }
 
