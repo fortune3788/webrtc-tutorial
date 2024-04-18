@@ -1,7 +1,7 @@
 import FirebaseSignallingClient from './FirebaseSignallingClient';
 
 export default class RtcClient {
-  constructor(setRtcClient) {
+  constructor(setRtcClient, remoteVideoRef) {
     const config = {
       iceServers: [
         {
@@ -15,6 +15,7 @@ export default class RtcClient {
     this.remotePeerName = "";
     this._setRtcClient = setRtcClient;
     this.mediaStream = null;
+    this.remoteVideoRef = remoteVideoRef;
   }
 
   setRtcClient(){

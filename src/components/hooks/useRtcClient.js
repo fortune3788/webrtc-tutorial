@@ -1,8 +1,9 @@
-import { useState, useReducer, useEffect } from 'react';
+import { useState, useReducer, useEffect, useRef } from 'react';
 import RtcClient from '../../utils/RtcClient';
 
 const useRtcClient = () => {
   const [rtcClient, _setRtcClient] = useState(null);
+  const remoteVideoRef = useRef(null);
   const [, forceRender] = useReducer((boolean => !boolean), false);
 
   const setRtcClient = (rtcClient) => {
@@ -12,7 +13,7 @@ const useRtcClient = () => {
 
   useEffect(() => {
     const init = async () => {
-      const client = new RtcClient(setRtcClient);
+      const client = new RtcClient(setRtcClient, remoteVideoRef);
       await client.setMediaStream();
     }
     init();
