@@ -39,10 +39,11 @@ export default function SignIn( { rtcClient }) {
     setDisabled(disabled);
   }, [name]);
 
-  const initializeRemotePeer = useCallback((e) => {
-    rtcClient.connect(name);
-    e.preventDefault();
-  }, [name, rtcClient]);
+  const initializeRemotePeer = useCallback(
+    async(e) => {
+      await rtcClient.connect(name);
+      e.preventDefault();
+    }, [name, rtcClient]);
 
   if (rtcClient.remotePeerName === '') {
     return <></>;
@@ -87,7 +88,7 @@ export default function SignIn( { rtcClient }) {
               value={name}
               onCompositionStart={() => setIsComposed(true)}
               onCompositionEnd={() => setIsComposed(false)}
-              onKeyDown={(e) => {
+              onKeyDown={async(e) => {
                 if (isComposed) {
                   return;
                 }
@@ -95,7 +96,7 @@ export default function SignIn( { rtcClient }) {
                   return;
                 }
                 if (e.key === 'Enter') {
-                  initializeRemotePeer(e);
+                  await initializeRemotePeer(e);
                 }
               }}
             />
@@ -105,7 +106,7 @@ export default function SignIn( { rtcClient }) {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               disabled={disabled}
-              onClick={(e) => initializeRemotePeer(e)}
+              onClick={async(e) => await initializeRemotePeer(e)}
             >
               決定
             </Button>
