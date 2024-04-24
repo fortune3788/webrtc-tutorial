@@ -45,7 +45,7 @@ export default function SignIn( { rtcClient }) {
       e.preventDefault();
     }, [name, rtcClient]);
 
-  if (rtcClient.remotePeerName === '') {
+  if (rtcClient.localPeerName === '') {
     return <></>;
   }
   if (rtcClient.remotePeerName !== '') {
