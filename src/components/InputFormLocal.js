@@ -39,8 +39,8 @@ export default function SignIn( { rtcClient }) {
     setDisabled(disabled);
   }, [name]);
 
-  const initializeLocalPeer = useCallback((e) => {
-    rtcClient.stratListening(name);
+  const initializeLocalPeer = useCallback(async (e) => {
+    await rtcClient.stratListening(name);
     e.preventDefault();
   }, [name, rtcClient]);
 
@@ -84,7 +84,7 @@ if (rtcClient.localPeerName !== '') {
               value={name}
               onCompositionStart={() => setIsComposed(true)}
               onCompositionEnd={() => setIsComposed(false)}
-              onKeyDown={(e) => {
+              onKeyDown={async (e) => {
                 if (isComposed) {
                   return;
                 }
@@ -92,7 +92,7 @@ if (rtcClient.localPeerName !== '') {
                   return;
                 }
                 if (e.key === 'Enter') {
-                  initializeLocalPeer(e);
+                  await initializeLocalPeer(e);
                 }
               }}
             />
@@ -102,8 +102,8 @@ if (rtcClient.localPeerName !== '') {
               variant="contained"
               sx={{ mt: 3, mb: 2 }}
               disabled={disabled}
-              onClick={(e) => {
-                initializeLocalPeer(e);
+              onClick={async (e) => {
+                await initializeLocalPeer(e);
               }}
             >
               決定
