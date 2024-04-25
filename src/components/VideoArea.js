@@ -21,7 +21,7 @@ const VideoArea = ( { rtcClient }) => {
 
   return (
     <Box sx={{ flexGrow: 1 }}>
-      <Grid container spacing={2}>
+      <Grid container spacing={0}>
         <Grid item xs={6} md={6}>
           <VideoLocal rtcClient={rtcClient} />
         </Grid>
