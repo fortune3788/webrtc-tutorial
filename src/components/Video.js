@@ -1,12 +1,14 @@
-import React, { useRef } from "react";
+import React, { useRef, useState } from "react";
 import Card from '@mui/material/Card';
 import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
+import VolumeButton from './VolumeButton';
 import useDimensions from "./hooks/useDimensions";
 
 const Video = ({name, videoRef, isLocal}) => {
+  const [muted, setMuted] = useState(true);
   const refCard = useRef(null);
   const dimensionsCard = useDimensions(refCard);
 
@@ -15,7 +17,7 @@ const Video = ({name, videoRef, isLocal}) => {
       <video 
       ref={videoRef}
       autoPlay={true} 
-      muted={isLocal}
+      muted={isLocal || muted }
       width={dimensionsCard.width}
       />
       <CardContent>
@@ -23,7 +25,9 @@ const Video = ({name, videoRef, isLocal}) => {
           {name}
         </Typography>
       </CardContent>
-      <CardActions></CardActions>
+      <CardActions>
+        <VolumeButton muted={muted} setMuted={setMuted} />
+      </CardActions>
     </Card>
   );
 }
