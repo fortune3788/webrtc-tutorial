@@ -184,7 +184,7 @@ export default class RtcClient {
     this.setRtcClient();
     await this.firebaseSignallingClient.remove(localPeerName);
     this.firebaseSignallingClient.database
-      .ref('localPeerName')
+      .ref(localPeerName)
       .on('value', async (snapshot) => {
         const data = snapshot.val();
         if(data === null) return;
