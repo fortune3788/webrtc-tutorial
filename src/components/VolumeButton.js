@@ -4,7 +4,7 @@ import { IconButton } from "@mui/material";
 import VolumeOffIcon from '@mui/icons-material/VolumeOff';
 import VolumeUpIcon from '@mui/icons-material/VolumeUp';
 
-const VolumeButton = ({ muted, setMuted }) => {
+const VolumeButton = ({ isLocal, muted, setMuted, rtcClient }) => {
   const Icon = muted ? VolumeOffIcon : VolumeUpIcon;
   
   return (
@@ -12,6 +12,8 @@ const VolumeButton = ({ muted, setMuted }) => {
       aria-label="switch mute"
       onClick={() => {
         setMuted((previousState) => !previousState);
+        // 以下はlocal側だけで実行可能
+        if (isLocal) rtcClient.toggleAudio();
       }}
     >
       <Icon />

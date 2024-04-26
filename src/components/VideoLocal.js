@@ -21,7 +21,14 @@ const VideoLocal = ({ rtcClient }) => {
     getMedia();
   }, [currentVideoRef, mediaStream]);
 
-  return <Video videoRef={videoRef} name={rtcClient.localPeerName} isLocal={true} />;
+  return (
+    <Video 
+    videoRef={videoRef} 
+    name={rtcClient.localPeerName} 
+    isLocal={true}
+    rtcClient={rtcClient}
+    /> 
+  );
 };
 
 export default VideoLocal;
