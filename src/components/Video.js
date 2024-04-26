@@ -4,6 +4,7 @@ import CardActions from '@mui/material/CardActions';
 import CardContent from '@mui/material/CardContent';
 import Typography from '@mui/material/Typography';
 
+import AudioAnalyser from './AudioAnalyser';
 import VolumeButton from './VolumeButton';
 import useDimensions from "./hooks/useDimensions";
 
@@ -32,6 +33,9 @@ const Video = ({ name, videoRef, isLocal, rtcClient }) => {
         setMuted={setMuted} 
         rtcClient={rtcClient} 
         />
+        { !muted && videoRef.current && videoRef.current.srcObject &&(
+          <AudioAnalyser audio={videoRef.current.srcObject} />
+        )}
       </CardActions>
     </Card>
   );
